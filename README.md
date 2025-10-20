@@ -1,16 +1,16 @@
 # 🌩️ cf-tunnel-manager
 
-**cf-tunnel-manager** là công cụ CLI giúp bạn **tạo, quản lý và khởi chạy Cloudflare Tunnel** một cách tự động và thân thiện — chỉ với vài dòng lệnh.
-Công cụ này giúp bạn public ứng dụng nội bộ ra Internet mà **không cần mở port, không cần IP tĩnh**, và tự động cấu hình DNS, timeout, TLS...
+- **cf-tunnel-manager** là công cụ CLI giúp bạn **tạo, quản lý và khởi chạy Cloudflare Tunnel** một cách tự động và thân thiện — chỉ với vài dòng lệnh.
+- Công cụ này giúp bạn public ứng dụng nội bộ ra Internet mà **không cần mở port, không cần IP tĩnh**, và tự động cấu hình DNS, timeout, TLS...
 
 ## 🚀 Tính năng chính
-✅ Tạo Cloudflare Tunnel tự động
-✅ Cấu hình `config.yml` tự động (multi-app, timeout 600s, noTLSVerify)
-✅ Tự động add/remove DNS route theo domain
-✅ Tự động cài đặt và đăng nhập Cloudflare (`cloudflared`)
-✅ Hỗ trợ alias: `ctm` hoặc `cf-tunnel`
-✅ Quản lý tunnel: list, run, start, remove
-✅ Hoạt động trên Linux & macOS
+- ✅ Tạo Cloudflare Tunnel tự động
+- ✅ Cấu hình `config.yml` tự động (multi-app, timeout 600s, noTLSVerify)
+- ✅ Tự động add/remove DNS route theo domain
+- ✅ Tự động cài đặt và đăng nhập Cloudflare (`cloudflared`)
+- ✅ Hỗ trợ alias: `ctm` hoặc `cf-tunnel`
+- ✅ Quản lý tunnel: list, run, start, remove
+- ✅ Hoạt động trên Linux & macOS
 
 ## ⚙️ Cài đặt
 Clone project về:
