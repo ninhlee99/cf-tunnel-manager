@@ -19,10 +19,10 @@ remove_tunnel() {
     echo ""
     echo "STT  APP NAME                 TUNNEL ID"
     echo "-----------------------------------------------"
-    
+
     # In ra danh sách đã được đánh số STT
     echo "$tunnels" # | nl -w3 -s".  " | awk '{printf "%-5s %-25s %s\n", $1, $2, $3}'
-    
+
     echo ""
     read -p "🔢 Nhập số thứ tự tunnel muốn xoá: " choice
 
@@ -34,7 +34,7 @@ remove_tunnel() {
     # Lấy TÊN tunnel (field 2) dựa trên số thứ tự (choice)
     # Lệnh 'nl' đánh số thứ tự, sau đó 'awk' chọn dòng và lấy tên
     app_name=$(echo "$tunnels" | awk -v n="$choice" 'NR==n {print $2}')
-    
+
     if [[ -z "$app_name" ]]; then
       error "❌ Không tìm thấy tunnel tương ứng với số $choice."
       exit 1
@@ -50,7 +50,7 @@ remove_tunnel() {
     error "❌ Không tìm thấy tunnel '$app_name' (ID không xác định)."
     exit 1
   fi
-  
+
   log "Tunnel found: $app_name ($tunnel_id)"
   if ask_confirm "Are you sure you want to delete this tunnel and its credentials?"; then
     cloudflared tunnel delete "$app_name" || {
@@ -65,7 +65,7 @@ remove_tunnel() {
       log "Deleted credentials file: $cred_file"
     fi
 
-    local conf_file="$HOME/.cloudflared/config/${app_name}.json"
+    local conf_file="$HOME/.cloudflared/configs/${app_name}.yml"
     if [[ -f "$conf_file" ]]; then
       rm -f "$conf_file"
       log "Deleted config file: $conf_file"

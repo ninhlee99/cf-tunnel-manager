@@ -7,7 +7,7 @@ create_tunnel() {
   local port="$3"
   local full_hostname="${app_name}.${domain}"
   local tunnel_dir="$HOME/.cloudflared"
-  local config_dir="$tunnel_dir/config"
+  local config_dir="$tunnel_dir/configs"
   local config_file="$config_dir/${app_name}.yml"
 
   log "Creating tunnel for app: $app_name (${full_hostname})"

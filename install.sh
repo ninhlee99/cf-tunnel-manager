@@ -1,24 +1,40 @@
 #!/usr/bin/env bash
-# --- Installer for cf-tunnel-manager ---
-
 set -e
-BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TARGET="/usr/local/bin"
-CLI_NAME="cf-tunnel-manager"
 
-echo "[INFO] Installing $CLI_NAME to $TARGET..."
-sudo cp "$BASE_DIR/$CLI_NAME.sh" "$TARGET/$CLI_NAME"
+CLI_NAME="cf-tunnel-manager"
+TARGET="/usr/local/bin"
+SOURCE_DIR="$HOME/.cf-tunnel-manager"
+
+echo "[INFO] Installing $CLI_NAME..."
+
+# Kiểm tra xem source đã tồn tại chưa
+if [[ ! -d "$SOURCE_DIR" ]]; then
+  echo "[ERROR] Folder $SOURCE_DIR not found."
+  echo "👉 Hãy clone repo về bằng lệnh:"
+  echo "   git clone https://github.com/yourname/cf-tunnel-manager.git ~/.cf-tunnel-manager"
+  exit 1
+fi
+
+# Copy file chính
+sudo cp "$SOURCE_DIR/$CLI_NAME.sh" "$TARGET/$CLI_NAME"
 sudo chmod +x "$TARGET/$CLI_NAME"
 
-# Ask for alias
+# Tạo alias
 read -rp "Create alias 'ctm' and 'cf-tunnel'? [Y/n]: " choice
 if [[ "$choice" =~ ^[Yy]?$ ]]; then
+  SHELL_RC="$HOME/.bashrc"
+  if [[ -n "$ZSH_VERSION" ]]; then
+    SHELL_RC="$HOME/.zshrc"
+  fi
+
   {
     echo "alias ctm='$CLI_NAME'"
     echo "alias cf-tunnel='$CLI_NAME'"
-  } >> "$HOME/.bashrc"
-  source "$HOME/.bashrc"
-  echo "[INFO] Aliases added: ctm, cf-tunnel ✅"
+  } >> "$SHELL_RC"
+
+  echo "[INFO] Aliases added to $SHELL_RC ✅"
+  echo "[INFO] Run 'source $SHELL_RC' or restart terminal."
+  source "$SHELL_RC"
 fi
 
 echo "[INFO] Installation complete ✅"

@@ -3,7 +3,8 @@
 # Requires src/ util.sh, check_env.sh, tunnel_create.sh, dns_route.sh, tunnel_manage.sh
 
 set -e
-BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR="$HOME/.cf-tunnel-manager"
+# BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # load src
 if [ -f "$BASE_DIR/src/util.sh" ]; then
@@ -78,16 +79,16 @@ case "${1:-}" in
     list_tunnels
     ;;
 
-  start)
+  run)
     shift || true
     if [ -z "${1:-}" ]; then
-      error "Usage: cf-tunnel-manager start <app_name>"
+      error "Usage: cf-tunnel-manager run <app_name>"
       exit 1
     fi
     start_tunnel "$1"
     ;;
 
-  interactive)
+  start)
     interactive_start
     ;;
 
@@ -133,8 +134,8 @@ Usage:
   cf-tunnel-manager create <domain> <app_name> <port> Create tunnel, write config, add DNS route
   cf-tunnel-manager remove <app_name>                 Remove a tunnel and its credentials
   cf-tunnel-manager list                              List all tunnels
-  cf-tunnel-manager start <app_name>                  Start tunnel (foreground)
-  cf-tunnel-manager interactive                       Choose & start tunnel interactively
+  cf-tunnel-manager run <app_name>                    Start tunnel (foreground)
+  cf-tunnel-manager start                             Choose & start tunnel interactively
 
   # New utilities
   cf-tunnel-manager install                           Install cloudflared on this machine (apt/dnf/brew)
